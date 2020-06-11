@@ -4,7 +4,7 @@
 
 This is an Azure Automation Powershell Runbook which will retrieve mobile assets from Intune, and import them into your Hornbill instance CMDB.
 
-## Requirements
+## Requirements
 
 Requires the HornbillAPI (v1.1.0 or above), HornbillHelpers (v1.1.1 or above), AzureAD and PSIntuneAuth modules to be installed against your Azure Automation Account. These can be installed via the PowershellGallery:
 
@@ -26,6 +26,6 @@ Once these have been created, you can then populate the AutomationCred, Automati
 
 <https://wiki.hornbill.com/index.php/Microsoft_Azure_And_OMS_Integration>
 
-## License
+## License
 
 <https://wiki.hornbill.com/index.php/The_Hornbill_Community_License_(HCL)>
