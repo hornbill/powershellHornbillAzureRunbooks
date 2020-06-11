@@ -4,7 +4,7 @@
 
 This is an Azure Automation Powershell Workflow Runbook which will Resolve a Request within Service Manager on a Hornbill instance.
 
-## Requirements
+## Requirements
 
 Requires the HornbillAPI (v1.1.0 or above) and HornbillHelpers (v1.1.1 or above) modules to be installed against your Azure Automation Account. These can be installed via the PowershellGallery:
 
@@ -16,6 +16,6 @@ Requires the HornbillAPI (v1.1.0 or above) and HornbillHelpers (v1.1.1 or above)
 
 <https://wiki.hornbill.com/index.php/Microsoft_Azure_And_OMS_Integration>
 
-## License
+## License
 
 <https://wiki.hornbill.com/index.php/The_Hornbill_Community_License_(HCL)>
