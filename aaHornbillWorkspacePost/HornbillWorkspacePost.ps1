@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 80ca86d1-d36f-4e2b-ac9a-679e3c78605c
 
@@ -18,7 +18,8 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
  Azure Automation Runbook to post on a workspace on a Hornbill instance.
