@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 27e65a65-60b4-4196-86ef-9e0db3f49026
 
@@ -18,12 +18,41 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
  Azure Automation Runbook to update the details of a Request within Service Manager on a Hornbill instance.
 
 #>
+
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER requestReference
+#MANDATORY: The request reference ID
+
+#.PARAMETER summary
+#Request Summary
+
+#.PARAMETER description
+#Request Description
+
+#.PARAMETER categoryCode
+#Request Category Code
+
+#.PARAMETER siteName
+#Request Site Name
+
+#.PARAMETER externalReference
+#External reference number
+
+#.PARAMETER customFields
+#A JSON representation of the custom fields for a request
 
 #Requires -Module @{ModuleVersion = '1.1.0'; ModuleName = 'HornbillAPI'}
 #Requires -Module @{ModuleVersion = '1.1.1'; ModuleName = 'HornbillHelpers'}
