@@ -219,7 +219,6 @@ workflow Hornbill_RequestLogServiceRequest_Workflow
         ExceptionName = $exceptionName
         ExceptionSummary = $exceptionSummary
     }
-
     if($resultObject.Status -ne "ok"){
         Write-Error $resultObject
     } else {
