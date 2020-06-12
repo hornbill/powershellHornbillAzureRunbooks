@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.1
+.VERSION 1.1.2
 
 .GUID f0d886e9-d349-4a28-aa33-d5773088949d
 
@@ -18,11 +18,10 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
 
 .DESCRIPTION
-Corrected metadata
-Included parameter descriptions
+ Azure Automation Runbook to add a user to a group on a Hornbill instance.
 
 #>
 

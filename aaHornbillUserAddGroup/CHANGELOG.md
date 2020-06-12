@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.2 2020/06/12
+
+- Corrected metadata
+
 ## v1.1.1 2020/06/12
 
 - Corrected metadata
