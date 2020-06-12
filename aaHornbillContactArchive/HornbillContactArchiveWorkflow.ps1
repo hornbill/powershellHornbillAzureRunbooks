@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 9bead2cb-0f34-4255-b503-fe3ee74216f8
 
@@ -18,15 +18,24 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
-.DESCRIPTION 
+.DESCRIPTION
 Azure Automation Runbook to archive a contact record on a Hornbill instance.
 
 #>
 
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER contactId
+#MANDATORY: The ID (primary key) of the contact you wish to archive
+
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
-#Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
 
 workflow Hornbill_ContactArchive_Workflow
 {
