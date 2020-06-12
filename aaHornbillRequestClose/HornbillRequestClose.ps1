@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID c31618d5-5afb-4913-a4a3-191650c326fb
 
@@ -18,12 +18,34 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
-.DESCRIPTION 
- Azure Automation Runbook to close a Request within Service Manager on a Hornbill instance. 
+.DESCRIPTION
+ Azure Automation Runbook to close a Request within Service Manager on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER requestReference
+#MANDATORY: The request reference ID
+
+#.PARAMETER closureText
+#MANDATORY: The closure text string
+
+#.PARAMETER updateVisibility
+#The visibility of the closure timeline update. Defaults to "trustedGuest"
+
+#.PARAMETER closureCategoryId
+#The closure category code
+
+#.PARAMETER closureCategoryName
+#The closure category full name
 
 #Requires -Module @{ModuleVersion = '1.1.0'; ModuleName = 'HornbillAPI'}
 #Requires -Module @{ModuleVersion = '1.1.1'; ModuleName = 'HornbillHelpers'}
@@ -43,11 +65,11 @@ workflow Hornbill_RequestClose_Workflow
 
         # API Params
         [Parameter (Mandatory= $true)]
-        [string] $requestReference, 
+        [string] $requestReference,
         [Parameter (Mandatory= $true)]
-        [string] $closureText, 
-        [string] $updateVisibility = "trustedGuest", 
-        [string] $closureCategoryId, 
+        [string] $closureText,
+        [string] $updateVisibility = "trustedGuest",
+        [string] $closureCategoryId,
         [string] $closureCategoryName
     )
 
@@ -88,7 +110,7 @@ workflow Hornbill_RequestClose_Workflow
             $exceptionSummary = $xmlmcOutput.params.exceptionDescription
         }
     }
-    # Build resultObject to write to output 
+    # Build resultObject to write to output
     $resultObject = New-Object PSObject -Property @{
         Status = $xmlmcOutput.status
         Error = $xmlmcOutput.error
@@ -96,7 +118,7 @@ workflow Hornbill_RequestClose_Workflow
         ExceptionName = $exceptionName
         ExceptionSummary = $exceptionSummary
     }
-    
+
     if($resultObject.Status -ne "ok"){
         Write-Error $resultObject
     } else {
