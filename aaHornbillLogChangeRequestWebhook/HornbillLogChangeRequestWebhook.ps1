@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.1
+.VERSION 1.1.2
 
 .GUID 06e5ef5c-99b2-4893-a018-c80d9752c1c0
 
@@ -9,7 +9,7 @@
 
 .COMPANYNAME Hornbill
 
-.TAGS hornbill powershell azure automation workflow runbook
+.TAGS hornbill powershell azure automation webhook runbook
 
 .LICENSEURI https://wiki.hornbill.com/index.php/The_Hornbill_Community_License_(HCL)
 
@@ -18,12 +18,60 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
-.DESCRIPTION 
- Azure Automation Runbook to log a new Change Request within Service Manager on a Hornbill instance. 
+.DESCRIPTION
+ Azure Automation Runbook to log a new Change Request within Service Manager on a Hornbill instance. For use with Automation Webhooks.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER WebhookData
+# MANDATORY: A properly formatted JSON string containing the request properties:
+# assetIds
+#   A comma-seperated string of asset IDs to attach to the new request, for example: 1,12,36
+# bpmName
+#   The name of a BPM to override the Service BPM or Default BPM.
+# catalogName
+#   The title of the catalog to raise thew request against
+# categoryId
+#   The ID of the request category
+# categoryName
+#   The fullname of the request category
+# changeType
+#   The Change Type (Standard, Emergency for example)
+# customerId
+#   The ID of the request customer
+# customerType
+#   The Type of the request customer (0 for Users, 1 for contacts)
+# description
+#   The request description
+# ownerId
+#   The ID of the request owner
+# priorityName
+#   The name of the request Priority
+# resolutionDetails
+# The resolution description
+# serviceName
+#   The name of the service to raise the request against
+# siteName
+#   The name of the request site
+# sourceId
+#   The ID of the request source
+# sourceType
+#   The Type of request source
+# status
+#   The status of the new request (defaults to status.open)
+# summary
+#   The request summary
+# teamId
+#   The ID of the team that the request should be assigned to
 
 #Requires -Module @{ModuleVersion = '1.1.0'; ModuleName = 'HornbillAPI'}
 #Requires -Module @{ModuleVersion = '1.1.1'; ModuleName = 'HornbillHelpers'}
@@ -45,13 +93,13 @@ Param
 )
 
 if ($null -ne $WebhookData) {
-    
+
     # Define instance details
     Set-HB-Instance -Instance $instanceName -Key $instanceKey
 
     $WebhookBody = $WebhookData.RequestBody
     $requestObject = ConvertFrom-Json $WebhookBody
-    
+
     $searchResultsValue = ""
     if($requestObject.SearchResults) {
         $SearchResultsValue = ConvertTo-Json $requestObject.SearchResults.value
@@ -59,7 +107,7 @@ if ($null -ne $WebhookData) {
 
     $requestDescription = $requestObject.description
     if($SearchResultsValue -ne ""){
-        $requestDescription += "'''Alert Results Value JSON:''' "+$SearchResultsValue 
+        $requestDescription += "'''Alert Results Value JSON:''' "+$SearchResultsValue
     }
 
     # Get service ID from Name
@@ -152,7 +200,7 @@ if ($null -ne $WebhookData) {
             $resultObject.ExceptionSummary = $xmlmcOutput.params.exceptionDescription
         }
     }
-    
+
     if($resultObject.Status -ne "ok"){
         Write-Error $resultObject
     } else {
