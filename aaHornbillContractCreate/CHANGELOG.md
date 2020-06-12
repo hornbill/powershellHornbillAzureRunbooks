@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.1 2020/06/12
+
+- Included parameter descriptions
+
 ## v1.1.0 2020/06/11
 
 - Removed need for instanceZone

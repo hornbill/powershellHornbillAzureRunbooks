@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 2eb1e8f8-9628-4a3e-92ce-4c1e17133ea9
 
@@ -18,12 +18,78 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Included parameter descriptions
 
-.DESCRIPTION 
- Azure Automation Runbook to create a contact record on a Hornbill instance. 
+.DESCRIPTION
+ Azure Automation Runbook to create a contact record on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER h_firstname
+#MANDATORY: Contact firstname
+
+#.PARAMETER h_lastname
+#MANDATORY: Contact surname
+
+#.PARAMETER organisationName
+#Name of the organisation that this contact belongs to. The organisation must aready exist in your Hornbill instance
+
+#.PARAMETER h_jobtitle
+#Contact job title
+
+#.PARAMETER h_tel_1
+#Contact primary phone number
+
+#.PARAMETER h_tel_2
+#Contact secondary phone number
+
+#.PARAMETER h_email_1
+#Contact primary email
+
+#.PARAMETER h_email_2
+#Contact secondary email
+
+#.PARAMETER h_description
+#Contact description
+
+#.PARAMETER h_country
+#Contact country code
+
+#.PARAMETER h_language
+#Contact language code
+
+#.PARAMETER h_owner
+#MANDATORY: Contact owner account ID
+
+#.PARAMETER h_notes
+#Contact notes
+
+#.PARAMETER h_private
+#Contact mark as private (true or false)
+
+#.PARAMETER h_custom_1
+#Contact custom field
+
+#.PARAMETER h_custom_2
+#Contact custom field
+
+#.PARAMETER h_custom_3
+#Contact custom field
+
+#.PARAMETER h_custom_4
+#Contact custom field
+
+#.PARAMETER h_custom_5
+#Contact custom field
+
+#.PARAMETER h_custom_6
+#Contact custom field
 
 #Requires -Module @{ModuleVersion = '1.1.0'; ModuleName = 'HornbillAPI'}
 #Requires -Module @{ModuleVersion = '1.1.1'; ModuleName = 'HornbillHelpers'}
@@ -100,7 +166,7 @@ workflow Hornbill_ContactCreate_Workflow
         $NewContactID = $xmlmcOutput.params.h_pk_id
     }
 
-    # Build resultObject to write to output 
+    # Build resultObject to write to output
     $resultObject = New-Object PSObject -Property @{
         Status = $xmlmcOutput.status
         Error = $xmlmcOutput.error
@@ -114,7 +180,7 @@ workflow Hornbill_ContactCreate_Workflow
             Add-HB-Param "orgId" $OrgObj.OrganisationID
             $xmlmcOutputAddOrg = Invoke-HB-XMLMC "apps/com.hornbill.core/Contact" "changeOrg"
             if($xmlmcOutputAddOrg.status -ne "ok"){
-                # Build resultObject to write to output 
+                # Build resultObject to write to output
                 $resultObject = New-Object PSObject -Property @{
                     Status = $xmlmcOutput.status
                     Error = $xmlmcOutput.error
@@ -124,7 +190,7 @@ workflow Hornbill_ContactCreate_Workflow
             }
         }
     }
-    
+
     if($resultObject.Status -ne "ok"){
         Write-Error $resultObject
     } else {
