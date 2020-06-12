@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 155d130e-ad61-4a77-a9e1-c867ea4bc221
 
@@ -18,12 +18,28 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
- Azure Automation Runbook to createa a workspace on a Hornbill instance.
+ Azure Automation Runbook to create a a workspace on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER displayName
+#MANDATORY: The workspaces display name/title.
+
+#.PARAMETER title
+#MANDATORY: Set the title/short description of this workspace
+
+#.PARAMETER visibility
+#Limits the visibility to the specified visibility group: public, closed or private (default)
 
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
 #Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
