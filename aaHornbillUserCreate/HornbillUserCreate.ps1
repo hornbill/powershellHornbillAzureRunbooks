@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 89e1b09f-94e7-448b-8f86-b6211fbfaab2
 
@@ -18,13 +18,79 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
-Replaced userId input param with newId, and password with newPwd
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
  Azure Automation Runbook to create a user on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER newId
+#MANDATORY: The ID of the new user
+
+#.PARAMETER name
+#MANDATORY: The users fullname (handle)
+
+#.PARAMETER newPwd
+#MANDATORY: The users password
+
+#.PARAMETER userType
+#The type of user (basic or user)
+
+#.PARAMETER firstName
+#The users firstname
+
+#.PARAMETER lastName
+#The users surname
+
+#.PARAMETER jobTitle
+#The users job title
+
+#.PARAMETER siteName
+#The users site name
+
+#.PARAMETER phone
+#The users phone number
+
+#.PARAMETER email
+#The users email address
+
+#.PARAMETER mobile
+#The users mobile or secondary phone number
+
+#.PARAMETER availabilityStatus
+#The users availability status
+
+#.PARAMETER absenceMessage
+#The users current absence message
+
+#.PARAMETER timeZone
+#The users timezone (taken from the instance default if not specified)
+
+#.PARAMETER language
+#The users language (taken from the instance default if not specified)
+
+#.PARAMETER dateTimeFormat
+#The users preferred datetime format (taken from the instance default if not specified)
+
+#.PARAMETER dateFormat
+#The users preferred date format (taken from the instance default if not specified)
+
+#.PARAMETER timeFormat
+#The users preferred time format (taken from the instance default if not specified)
+
+#.PARAMETER currencySymbol
+#The users local currency symbol (taken from the instance default if not specified)
+
+#.PARAMETER countryCode
+#The users country code (taken from the instance default if not specified)
 
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
 #Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
