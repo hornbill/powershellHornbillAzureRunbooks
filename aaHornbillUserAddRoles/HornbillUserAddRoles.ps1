@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID b7d13e96-b287-46bf-b12f-ba6a5f5e1cb6
 
@@ -18,12 +18,25 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
  Azure Automation Runbook to add roles to a user on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER userId
+#MANDATORY: The ID of the user
+
+#.PARAMETER roles
+#MANDATORY: A pipe-seperated list of role names, for example: Collaboration Role|Service Desk Admin|Change Manager
 
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
 #Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
