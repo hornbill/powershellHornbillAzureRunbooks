@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID 95fd86ba-3fc6-4de6-939f-270c510bc8bc
 
@@ -18,12 +18,31 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed requirement to provide instanceZone param
+Corrected metadata
+Included parameter descriptions
 
 .DESCRIPTION
  Azure Automation Runbook to add a user to a workspace on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER userId
+#MANDATORY: The ID of the user
+
+#.PARAMETER workspaceName
+#MANDATORY: The name of the workspace
+
+#.PARAMETER description
+#A description of the users role within the workspace
+
+#.PARAMETER announceMembership
+#Boolean true/false - should the user being added to the workspace be announced on the workspace
 
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
 #Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
