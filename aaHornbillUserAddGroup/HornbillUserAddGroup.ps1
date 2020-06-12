@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID f0d886e9-d349-4a28-aa33-d5773088949d
 
@@ -21,9 +21,31 @@
 Removed requirement to provide instanceZone param
 
 .DESCRIPTION
- Azure Automation Runbook to add a user to a group on a Hornbill instance.
+Corrected metadata
+Included parameter descriptions
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER userId
+#MANDATORY: ID of the user being added to the group
+
+#.PARAMETER groupId
+#MANDATORY: ID of the group
+
+#.PARAMETER memberRole
+#MANDATORY: Role the user will take in the group (member, teamLeader or manager)
+
+#.PARAMETER tasksView
+#If set true, then the user can view tasks assigned to this group
+
+#.PARAMETER tasksAction
+#If set true, then the user can action tasks assigned to this group.
 
 #Requires -Module @{ModuleName = 'HornbillAPI'; ModuleVersion = '1.1.0'}
 #Requires -Module @{ModuleName = 'HornbillHelpers'; ModuleVersion = '1.1.1'}
