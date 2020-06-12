@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1.0
+.VERSION 1.1.1
 
 .GUID e10699f2-21a7-4d79-b767-2dc51c1f9674
 
@@ -18,12 +18,75 @@
 .ICONURI https://wiki.hornbill.com/skins/common/images/HBLOGO.png
 
 .RELEASENOTES
-Removed need for instanceZone
+Included parameter descriptions
 
-.DESCRIPTION 
- Azure Automation Runbook to log a new Change Request within Service Manager on a Hornbill instance. 
+.DESCRIPTION
+ Azure Automation Runbook to log a new Change Request within Service Manager on a Hornbill instance.
 
 #>
+
+#.PARAMETER instanceName
+#MANDATORY: The name of the Instance to connect to.
+
+#.PARAMETER instanceKey
+#MANDATORY: An API key with permission on the Instance to carry out the required API calls.
+
+#.PARAMETER assetIds
+#A comma-seperated string of asset IDs to attach to the new request, for example: 1,12,36
+
+#.PARAMETER bpmName
+#The name of a BPM to override the Service BPM or Default BPM.
+
+#.PARAMETER catalogName
+#The title of the catalog to raise thew request against
+
+#.PARAMETER categoryId
+#The ID of the request category
+
+#.PARAMETER categoryName
+#The fullname of the request category
+
+#.PARAMETER changeType
+#The Change Type (Standard, Emergency for example)
+
+#.PARAMETER customerId
+#The ID of the request customer
+
+#.PARAMETER customerType
+#The Type of the request customer (0 for Users, 1 for contacts)
+
+#.PARAMETER description
+#The request description
+
+#.PARAMETER ownerId
+#The ID of the request owner
+
+#.PARAMETER priorityName
+#The name of the request Priority
+
+#.PARAMETER resolutionDetails
+#The resolution description
+
+#.PARAMETER serviceName
+#The name of the service to raise the request against
+
+#.PARAMETER siteName
+#The name of the request site
+
+#.PARAMETER sourceId
+#The ID of the request source
+
+#.PARAMETER sourceType
+#The Type of request source
+
+#.PARAMETER status
+#The status of the new request (defaults to status.open)
+
+#.PARAMETER summary
+#The request summary
+
+#.PARAMETER teamId
+#The ID of the team that the request should be assigned to
 
 #Requires -Module @{ModuleVersion = '1.1.0'; ModuleName = 'HornbillAPI'}
 #Requires -Module @{ModuleVersion = '1.1.1'; ModuleName = 'HornbillHelpers'}
@@ -42,24 +105,24 @@ workflow Hornbill_RequestLogChangeRequest_Workflow
         [string] $instanceKey,
 
         # API Params
-        [string] $assetIds, 
-        [string] $bpmName, 
-        [string] $catalogName, 
-        [string] $categoryId, 
-        [string] $categoryName, 
-        [string] $changeType, 
-        [string] $customerId, 
-        [string] $customerType, 
-        [string] $description, 
-        [string] $ownerId, 
-        [string] $priorityName, 
-        [string] $resolutionDetails, 
-        [string] $serviceName, 
-        [string] $siteName, 
-        [string] $sourceId, 
-        [string] $sourceType, 
-        [string] $status, 
-        [string] $summary, 
+        [string] $assetIds,
+        [string] $bpmName,
+        [string] $catalogName,
+        [string] $categoryId,
+        [string] $categoryName,
+        [string] $changeType,
+        [string] $customerId,
+        [string] $customerType,
+        [string] $description,
+        [string] $ownerId,
+        [string] $priorityName,
+        [string] $resolutionDetails,
+        [string] $serviceName,
+        [string] $siteName,
+        [string] $sourceId,
+        [string] $sourceType,
+        [string] $status,
+        [string] $summary,
         [string] $teamId
     )
 
@@ -125,7 +188,7 @@ workflow Hornbill_RequestLogChangeRequest_Workflow
             Add-HB-Param "assetId" $asset $false
         }
     }
-    
+
     Add-HB-Param "serviceId" $serviceId $false
     Add-HB-Param "resolutionDetails" $resolutionDetails $false
     Add-HB-Param "changeType" $changeType $false
@@ -140,7 +203,7 @@ workflow Hornbill_RequestLogChangeRequest_Workflow
 
     $exceptionName = ""
     $exceptionSummary = ""
-    
+
     # Read output status
     if($xmlmcOutput.status -eq "ok") {
         if($xmlmcOutput.params.requestId -and $xmlmcOutput.params.requestId -ne ""){
@@ -152,7 +215,7 @@ workflow Hornbill_RequestLogChangeRequest_Workflow
             $exceptionSummary = $xmlmcOutput.params.exceptionDescription
         }
     }
-    # Build resultObject to write to output 
+    # Build resultObject to write to output
     $resultObject = New-Object PSObject -Property @{
         Status = $xmlmcOutput.status
         Error = $xmlmcOutput.error
@@ -161,7 +224,7 @@ workflow Hornbill_RequestLogChangeRequest_Workflow
         ExceptionName = $exceptionName
         ExceptionSummary = $exceptionSummary
     }
-    
+
     if($resultObject.Status -ne "ok"){
         Write-Error $resultObject
     } else {
