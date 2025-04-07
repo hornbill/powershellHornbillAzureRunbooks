@@ -89,7 +89,7 @@ workflow Hornbill_WorkspacePost_Workflow
 
     # Read output status
     if($xmlmcOutput.status -eq "ok") {
-        $activityID = $xmlmcOutput.params.activityId
+        $activityID = $xmlmcOutput.params.activity.id
     }
 
     # Build resultObject to write to output
