@@ -72,7 +72,7 @@ workflow Hornbill_WorkspacePostComment_Workflow
 
     # Read output status
     if($xmlmcOutput.status -eq "ok") {
-        $commentID = $xmlmcOutput.params.commentID
+        $commentID = $xmlmcOutput.params.comment.id
     }
 
     # Build resultObject to write to output
